@@ -3,8 +3,49 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="jquery.mobile-1.1.1.min.css" type="text/css"/>
+<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/jquery.mobile-1.1.1.min.js" type="text/javascript"></script>
+<script src="js/cordova-2.0.0.js" type="text/javascript"></script>
+
 </head>
 <body>
-    This is a sample File
+    <div data-role="page" id="mainpage">
+        <div data-role="content">
+           <form method="post">
+               <label for="txtName"><b>Title</b></label>
+               <input type="text" id="txtTitle" data-role="text" />
+               
+               <label for="txtContent"><b>Content</b></label>
+               <textarea name="txtContent"></textarea>
+               
+               <label for="txtPwd"><b>Password</b></label>
+               <input type="password" data-role="password" id="txtPwd" />
+               
+               <label for="txtCnfPwd"><b>Confirm Password</b></label>
+               <input type="password" data-role="password" id="txtCnfPwd" />
+               
+               <fieldset data-role="controlgroup">
+                 <legend><b>Choose a Color:</b></legend>
+                 
+                 <input type="radio" name="col" id="colBlue" />
+                 <label for="colBlue">Blue</label>
+                 
+                 <input type="radio" name="col" id="colRed" />
+                 <label for="colRed">Red</label>
+                 
+                 <input type="radio" name="col" id="colGreen" />
+                 <label for="colGreen">Green</label>
+                 
+                 <input type="radio" name="col" id="colPurple" />
+                 <label for="colPurple">Purple</label>
+               </fieldset>
+               
+           </form>
+        </div>
+    </div>
 </body>
 </html>
