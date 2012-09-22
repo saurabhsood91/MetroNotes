@@ -15,8 +15,68 @@
 
 <script type="text/javascript">
 
+var db = window.openDatabase("metrodb", "1.0", "Notes Database", 200000);
+
 	$(document).ready(function() {
-		alert('it is ready');
+		
+		db.transaction(populateDB, errorCB, successCB);
+		
+		function populateDB(tx) {
+			tx.executeSql("create table if not exists MetroNotes(id integer primary key\
+				autoincrement, title text not null, content text not null, pwd text not null,\
+				color text not null)");
+		}
+		
+		function errorCB(err) {
+			alert("error" + err);
+		}
+		
+		function successCB() {
+			alert("success in creating or accessing db");
+		}
+		
+		function insertDB() {
+			db.transaction(insertToDb, sqlErr, sqlSuccess);
+		}
+		
+		function insertToDb(tx) {
+			var title = $('#txtTitle').val();
+			var content = document.getElementById("txtContent").value;
+			var pwd = $('#txtPwd').val();
+			
+			var color;
+			
+			if(document.getElementById("colBlue").checked == true)
+				color = "blue";
+			else if(document.getElementById("colRed").checked == true)
+				color = "red";
+			else if(document.getElementById("colGreen").checked == true)
+				color = "green";
+			else if(document.getElementById("colPurple").checked == true)
+				color = "purple";
+				
+			alert(title);
+			alert(content);
+			alert(pwd);
+			alert(color);
+			
+			var query = 'insert into MetroNotes(title, content, pwd, color) values\
+			(\'' + title + '\',' + '\'' + content + '\',' + '\'' + pwd + '\',' + '\'' + color + '\')';	
+			alert(query)
+			
+			tx.executeSql(query);
+		
+		}
+		
+		function sqlErr(err) {
+			alert('SQL error ' + err.code);
+		}
+		
+		function sqlSuccess() {
+			alert('Successfully inserted into DB');
+		}
+		
+		//alert('it is ready');
 		$('#btnsubmit').click(function() {
 			$('#addnote').validate();
 
@@ -27,12 +87,15 @@
 				//alert($('#txtPwd').val());
 				//alert($('#txtCnfPwd').val());
 				alert('Passwords entered are not same');
+				return;
 			}
 			
 			if(!$('#addnote').valid()) {
 				alert('invalid form');
+				return;
 			}
 			
+			insertDB();
 			
 		})
 	})
@@ -48,7 +111,7 @@
                <input type="text" id="txtTitle" data-role="text" class="required" />
                
                <label for="txtContent"><b>Content</b></label>
-               <textarea name="txtContent" class="required"></textarea>
+               <textarea name="txtContent" id="txtContent" class="required"></textarea>
                
                <label for="txtPwd"><b>Password</b></label>
                <input type="password" data-role="password" id="txtPwd" class="required"/>
