@@ -19,10 +19,20 @@
 		alert('it is ready');
 		$('#btnsubmit').click(function() {
 			$('#addnote').validate();
+
+				//alert($('#txtPwd').val());
+				//alert($('#txtCnfPwd').val());
+			
+			if($('#txtPwd').val() != $('#txtCnfPwd').val()) {
+				//alert($('#txtPwd').val());
+				//alert($('#txtCnfPwd').val());
+				alert('Passwords entered are not same');
+			}
 			
 			if(!$('#addnote').valid()) {
 				alert('invalid form');
 			}
+			
 			
 		})
 	})
