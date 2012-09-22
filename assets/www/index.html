@@ -11,24 +11,42 @@
 <script src="js/jquery.mobile-1.1.1.min.js" type="text/javascript"></script>
 <script src="js/cordova-2.0.0.js" type="text/javascript"></script>
 
+<script src="js/jquery.validate.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		alert('it is ready');
+		$('#btnsubmit').click(function() {
+			$('#addnote').validate();
+			
+			if(!$('#addnote').valid()) {
+				alert('invalid form');
+			}
+			
+		})
+	})
+
+</script>
+
 </head>
 <body>
     <div data-role="page" id="mainpage">
         <div data-role="content">
-           <form method="post">
+           <form method="post" id="addnote">
                <label for="txtName"><b>Title</b></label>
-               <input type="text" id="txtTitle" data-role="text" />
+               <input type="text" id="txtTitle" data-role="text" class="required" />
                
                <label for="txtContent"><b>Content</b></label>
-               <textarea name="txtContent"></textarea>
+               <textarea name="txtContent" class="required"></textarea>
                
                <label for="txtPwd"><b>Password</b></label>
-               <input type="password" data-role="password" id="txtPwd" />
+               <input type="password" data-role="password" id="txtPwd" class="required"/>
                
                <label for="txtCnfPwd"><b>Confirm Password</b></label>
-               <input type="password" data-role="password" id="txtCnfPwd" />
+               <input type="password" data-role="password" id="txtCnfPwd" class="required"/>
                
-               <fieldset data-role="controlgroup">
+               <fieldset data-role="controlgroup" class="required">
                  <legend><b>Choose a Color:</b></legend>
                  
                  <input type="radio" name="col" id="colBlue" />
@@ -45,7 +63,7 @@
                </fieldset>
                
         <fieldset class="ui-grid-a">
-            <div class="ui-block-b"><button type="submit" data-theme="a">Submit</button></div>
+            <div class="ui-block-b"><button type="submit" data-theme="a" id="btnsubmit" name="btnsubmit">Submit</button></div>
         </fieldset>
                
            </form>
