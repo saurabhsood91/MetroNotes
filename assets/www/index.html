@@ -33,7 +33,7 @@ var db = window.openDatabase("metrodb", "1.0", "Notes Database", 200000);
 		}
 		
 		function successCB() {
-			alert("success in creating or accessing db");
+			//alert("success in creating or accessing db");
 		}
 		
 		function insertDB() {
@@ -56,14 +56,14 @@ var db = window.openDatabase("metrodb", "1.0", "Notes Database", 200000);
 			else if(document.getElementById("colPurple").checked == true)
 				color = "purple";
 				
-			alert(title);
-			alert(content);
-			alert(pwd);
-			alert(color);
+			//alert(title);
+			//alert(content);
+			//alert(pwd);
+			//alert(color);
 			
 			var query = 'insert into MetroNotes(title, content, pwd, color) values\
 			(\'' + title + '\',' + '\'' + content + '\',' + '\'' + pwd + '\',' + '\'' + color + '\')';	
-			alert(query)
+			//alert(query)
 			
 			tx.executeSql(query);
 		
@@ -74,7 +74,7 @@ var db = window.openDatabase("metrodb", "1.0", "Notes Database", 200000);
 		}
 		
 		function sqlSuccess() {
-			alert('Successfully inserted into DB');
+			//alert('Successfully inserted into DB');
 		}
 		
 		//alert('it is ready');
@@ -97,6 +97,7 @@ var db = window.openDatabase("metrodb", "1.0", "Notes Database", 200000);
 			}
 			
 			insertDB();
+			window.location = "main.html";
 			
 		})
 	})

@@ -33,7 +33,7 @@
 		}
 		
 		function successCB() {
-			alert("success in creating or accessing db");
+			//alert("success in creating or accessing db");
 		}
 		
 		function retrieveNotes() {
@@ -45,7 +45,7 @@
 		}
 		
 		function sqlSuccess() {
-			alert("Retrieval successfull");
+			//alert("Retrieval successfull");
 		}
 		
 		function retrieve(tx) {
@@ -58,7 +58,7 @@
 		}
 		
 		function querySuccess(tx, result) {
-			alert("query successful");
+			//alert("query successful");
 			$.each(result.rows, function(index) {
 				var row = result.rows.item(index);
 				
@@ -88,7 +88,7 @@ divElement.className = "divblue";
 
 var inner = '<a onclick = "det(' + id + ');">' + title + '</a>';
 
-alert(inner);
+//alert(inner);
   
 divElement.innerHTML = inner;  
 //document.body.appendChild(divElement);  
@@ -101,7 +101,7 @@ document.getElementById("maindiv").appendChild(divElement);
 
 
 function det(val) {
-	alert(val);
+	//alert(val);
 	temp_id = val;
 	db.transaction(getDetails, getError, getSuccess);
 }
@@ -116,13 +116,13 @@ function getDetails(tx) {
 }
 
 function getSuccess() {
-	alert("get success");
+	//alert("get success");
 }
 
 function getS(tx, result) {
 		var row = result.rows.item(0);
-		alert(row['title']);
-		alert(row['content']);
+		//alert(row['title']);
+		//alert(row['content']);
 		
 		var a = row['title'];
 		var b = row['content'];

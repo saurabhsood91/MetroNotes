@@ -30,11 +30,9 @@ public class MainActivity extends DroidGap {
     public boolean onOptionsItemSelected(MenuItem item) {
     	// TODO Auto-generated method stub
     	
-    	switch(item.getItemId()) {
-    		case R.id.item1 : 
-    			super.loadUrl("file:///android_asset/www/index.html");
-    			break;
-    	}
+    	
+    	super.loadUrl("file:///android_asset/www/index.html");
+    	
     	return super.onOptionsItemSelected(item);
     }
     
