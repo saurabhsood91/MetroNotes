@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="jquery.mobile-1.1.1.min.css" type="text/css"/>
+<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/jquery.mobile-1.1.1.min.js" type="text/javascript"></script>
+<script src="js/cordova-2.0.0.js" type="text/javascript"></script>
+
+<script src="js/jquery.validate.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	var db = window.openDatabase("metrodb", "1.0", "Notes Database", 200000);
+	var temp_id;
+	$(document).ready(function() {
+	
+		db.transaction(populateDB, errorCB, successCB);
+		
+		function populateDB(tx) {
+			tx.executeSql("create table if not exists MetroNotes(id integer primary key\
+				autoincrement, title text not null, content text not null, pwd text not null,\
+				color text not null)");
+			retrieveNotes();
+		}
+		
+		function errorCB(err) {
+			alert("error" + err);
+		}
+		
+		function successCB() {
+			alert("success in creating or accessing db");
+		}
+		
+		function retrieveNotes() {
+			db.transaction(retrieve, sqlErr, sqlSuccess)
+		}
+		
+		function sqlErr(err) {
+			alert("SQL error " + err.code)
+		}
+		
+		function sqlSuccess() {
+			alert("Retrieval successfull");
+		}
+		
+		function retrieve(tx) {
+			var query = "select * from MetroNotes";
+			tx.executeSql(query, [], querySuccess, queryErr);
+		}
+		
+		function queryErr(err) {
+			alert("Query Error " + err.code);
+		}
+		
+		function querySuccess(tx, result) {
+			alert("query successful");
+			$.each(result.rows, function(index) {
+				var row = result.rows.item(index);
+				
+				var title = row['title'];
+				var content = row['content'];
+				var id = row['id'];
+				var color = row['color'];
+				
+				
+var divElement = document.createElement("div");  
+  
+divElement.id = "myDiv";  
+  
+divElement.className = "divblue";
+
+		if( color == "blue" ) {
+			divElement.style.backgroundColor = "#6666FF";			
+		} else if( color == "orange") {
+			divElement.style.backgroundColor = "#F7660D";			
+		} else if( color == "green") {
+			divElement.style.backgroundColor = "#009933";			
+		} else {
+			divElement.style.backgroundColor = "#CC0099";
+		}  
+  
+//var inner = '<a href="details.html?q=' + id + '">' + title + '</a>';
+
+var inner = '<a onclick = "det(' + id + ');">' + title + '</a>';
+
+alert(inner);
+  
+divElement.innerHTML = inner;  
+//document.body.appendChild(divElement);  
+document.getElementById("maindiv").appendChild(divElement);
+				
+			})
+		}
+	
+	})
+
+
+function det(val) {
+	alert(val);
+	temp_id = val;
+	db.transaction(getDetails, getError, getSuccess);
+}
+
+function getError(err) {
+	alert("Get Error " + err.code);
+}
+
+function getDetails(tx) {
+	var query = "select * from MetroNotes where id = " + temp_id;
+	tx.executeSql(query, [], getS, getErr);
+}
+
+function getSuccess() {
+	alert("get success");
+}
+
+function getS(tx, result) {
+		var row = result.rows.item(0);
+		alert(row['title']);
+		alert(row['content']);
+		
+		var a = row['title'];
+		var b = row['content'];
+		var col = row['color'];
+		var pwd = row['pwd'];
+		
+		document.getElementById("det").innerHTML = "<center><b>Title: " + a + "</b><br />\
+		Content:<br />" + b + "<br /><br /></center>";
+		var d = document.getElementById("det");
+		
+		
+		
+		if( col == "blue" ) {
+			d.style.backgroundColor = "#6666FF";			
+		} else if( col == "orange") {
+			d.style.backgroundColor = "#F7660D";			
+		} else if( col == "green") {
+			d.style.backgroundColor = "#009933";			
+		} else {
+			d.style.backgroundColor = "#CC0099";
+		}
+		
+		var getPwd = prompt("Please enter the password: ", "");
+		
+		if(pwd == getPwd) {
+			window.location = "#second";	
+		} else {
+			alert("Incorrect Password!!!");
+		}		
+}
+
+function getErr(err) {
+	alert("error get " + err.code);
+}
+
+</script>
+
+</head>
+<body background = "brushed_alu.png">
+<div data-role = "page" id="current">
+<div data-role="content">
+<div id="maindiv">
+<p class="arrange">
+
+
+</p>
+</div>
+
+<!--<div data-role="page" id="details">
+	
+	<div data-role="content">
+		</div>
+	
+</div>-->
+</div>
+</div>
+	
+<div data-role="page" id="second" class = "divblue">
+	<div data-role="content">
+		<p class="arrange">
+		<div id="det" align="center">
+		</div>
+	</div>
+</div>
+</body>
+</html>
